@@ -24,10 +24,15 @@ app.use(express.static("public"));
 //   { id: 2, title: "Finish homework" },
 // ];
 let items = [];
+let currentUserId = 1;
 
 async function checkItems() {
-  const data = (await db.query("SELECT * FROM items ORDER BY id ASC")).rows;
-  return data;
+  // changed the query to bring up the items of a particular user.id
+  const data = (await db.query(
+    "SELECT users.id, title FROM users JOIN items ON users.id = items.user_id WHERE users.id = ($1)",
+    [currentUserId]
+  ));
+  return (data.rows);
 }
 
 app.get("/", async (req, res) => {
