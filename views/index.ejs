@@ -1,5 +1,12 @@
 <%- include('partials/header.ejs'); -%>
 
+  <form action="/user" method="post" class="user-menu">
+    <% users.forEach(function(user) { %>
+      <input type="submit" name="user" class="<%= user.color %>" value="<%= user.name %>">
+    <% }); %>
+    
+  </form>
+
   <div class="box" id="heading">
     <h1>
       <%= listTitle %>

@@ -23,27 +23,36 @@ app.use(express.static("public"));
 //   { id: 1, title: "Buy milk" },
 //   { id: 2, title: "Finish homework" },
 // ];
+let users = [];
 let items = [];
 let currentUserId = 1;
 
 async function checkItems() {
   // changed the query to bring up the items of a particular user.id
   const data = (await db.query(
-    "SELECT users.id, title FROM users JOIN items ON users.id = items.user_id WHERE users.id = ($1)",
+    "SELECT user_id, title FROM users JOIN items ON users.id = items.user_id WHERE users.id = ($1)",
     [currentUserId]
   ));
-  return (data.rows);
+  return data.rows;
+}
+
+async function getCurrentUser() {
+  const result = await db.query("SELECT * FROM users");
+  users = result.rows;
+  return users.find((user) => user.id == currentUserId);
 }
 
 app.get("/", async (req, res) => {
   try {
     items = await checkItems();
+    const currentUser = await getCurrentUser();
     res.render("index.ejs", {
       listTitle: "Today",
       listItems: items,
+      users: users,
     });
   } catch (error) {
-    console.error("Error fetching data from item table", err.stack);
+    console.error("Error fetching data from item table", error.stack);
   }
 });
 
@@ -54,7 +63,16 @@ app.post("/add", async (req, res) => {
     await db.query("INSERT INTO items (title) VALUES ($1)", [item]);
     res.redirect("/");
   } catch (error) {
-    console.error("Error inserting record into items table", err.stack); 
+    console.error("Error inserting record into items table", error.stack); 
+  }
+});
+
+//post route for /user
+app.post("/user", async (req, res) => {
+  try {
+    res.redirect("/");
+  } catch (error) {
+    console.error("Error fetching record of user", error.stack)
   }
 });
 
@@ -64,7 +82,7 @@ app.post("/edit", async (req, res) => {
     await db.query("UPDATE items SET title = ($1) WHERE id = ($2)", [result.updatedItemTitle, result.updatedItemId]);
     res.redirect("/");
   } catch (error) {
-    console.error("Error updating record in items table:", err.stack);
+    console.error("Error updating record in items table:", error.stack);
   }
 });
 
@@ -74,7 +92,7 @@ app.post("/delete", async (req, res) => {
     await db.query("DELETE FROM items WHERE id = ($1)", [result.deleteItemId]);
     res.redirect("/");
   } catch (error) {
-    console.error("Error deleting record from items", err.stack);
+    console.error("Error deleting record from items", error.stack);
   }
 });
 
