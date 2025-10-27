@@ -50,6 +50,7 @@ app.get("/", async (req, res) => {
       listTitle: "Today",
       listItems: items,
       users: users,
+      currentUser: currentUser,
     });
   } catch (error) {
     console.error("Error fetching data from item table", error.stack);

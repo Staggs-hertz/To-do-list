@@ -7,7 +7,7 @@
     
   </form>
 
-  <div class="box" id="heading">
+  <div class="box" id="heading" style="background-color:<%= currentUser.color %>;">
     <h1>
       <%= listTitle %>
     </h1>
@@ -30,14 +30,13 @@
           <button id="done<%=item.id%>" class="edit" type="submit" hidden><img class="icon"
               src="/assets/icons/check-solid.svg" alt="tick image"></button>
         </form>
-        <button id="edit<%=item.id%>" class="edit" onclick="handler('<%=item.id%>')"><img class="icon"
-            src="/assets/icons/pencil-solid.svg" alt="pencil image"></button>
+        <button id="edit<%=item.id%>" class="edit edit-btn mask" style="background-color:<%= currentUser.color %>;" onclick="handler('<%=item.id%>')"></button>
       </div>
       <% } %>
 
         <form class="item" action="/add" method="post">
-          <input type="text" name="newItem" placeholder="New Item" autocomplete="off" autofocus="true" />
-          <button class="add" type="submit" name="list" value=<%=listTitle %> >+</button>
+          <input type="text" id="newInput" name="newItem" placeholder="New Item" autocomplete="off" autofocus="true" />
+          <button class="add" type="submit" name="list" value=<%=listTitle %> style="background-color:<%= currentUser.color %>;">+</button>
         </form>
   </div>
 
@@ -48,5 +47,14 @@
       document.getElementById("done" + id).removeAttribute("hidden")
       document.getElementById("input" + id).removeAttribute("hidden")
     }
+
+    const input = document.getElementById('newInput');
+    input.addEventListener('focus', () => {
+      input.style.boxShadow = 'inset 0 -3px 0 0 <%= currentUser.color %>';
+    });
+    input.addEventListener('blur', () => {
+      input.style.boxShadow = '';
+    });
+
   </script>
   <%- include('partials/footer.ejs'); -%>
