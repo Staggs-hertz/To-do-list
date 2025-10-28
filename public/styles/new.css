@@ -1,0 +1,185 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,300);
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-family: "Roboto";
+  color: #ffffff;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.6), rgba(230, 215, 255, 0.6));
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  width: 100%;
+  height: 100dvh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.form-container {
+  width: 100%;
+  max-width: 500px;
+  padding: 20px;
+}
+.glassy-form {
+  background: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  color: #333;
+}
+.glassy-form h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #222;
+}
+.glassy-form input[type="text"] {
+  width: 100%;
+  padding: 12px;
+  margin: 5px 0 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: #f9f9f9;
+  color: #333;
+  font-size: 14px;
+  outline: none;
+  transition: border 0.3s ease;
+}
+.glassy-form input[type="text"]:focus {
+  border-color: #a683e3;
+}
+.pick-color {
+  margin-bottom: 10px;
+}
+input[type="radio"] {
+  display: none;
+}
+input[type="radio"]:checked + label span {
+  transform: scale(1.25);
+}
+input[type="radio"]:checked + label .red {
+  border: 2px solid #711313;
+}
+input[type="radio"]:checked + label .orange {
+  border: 2px solid #873a08;
+}
+input[type="radio"]:checked + label .yellow {
+  border: 2px solid #816102;
+}
+input[type="radio"]:checked + label .olive {
+  border: 2px solid #505a0b;
+}
+input[type="radio"]:checked + label .green {
+  border: 2px solid #0e4e1d;
+}
+input[type="radio"]:checked + label .teal {
+  border: 2px solid #003633;
+}
+input[type="radio"]:checked + label .blue {
+  border: 2px solid #103f62;
+}
+input[type="radio"]:checked + label .violet {
+  border: 2px solid #321a64;
+}
+input[type="radio"]:checked + label .purple {
+  border: 2px solid #501962;
+}
+input[type="radio"]:checked + label .pink {
+  border: 2px solid #851554;
+}
+label {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+label:hover span {
+  transform: scale(1.25);
+}
+label span {
+  display: block;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.2s ease-in-out;
+}
+label span.red {
+  background: red;
+}
+label span.orange {
+  background: orange;
+}
+label span.yellow {
+  background: yellow;
+}
+label span.olive {
+  background: olive;
+}
+label span.green {
+  background: green;
+}
+label span.magneta {
+  background: magenta;
+}
+label span.blue {
+  background: blue;
+}
+label span.violet {
+  background: violet;
+}
+label span.purple {
+  background: purple;
+}
+label span.pink {
+  background: pink;
+}
+label span.black {
+  background: black;
+}
+label span.gray {
+  background: gray;
+}
+label span.sky {
+  background: #4db3ff;
+}
+label span.indigo {
+  background: indigo;
+}
+label span.teal {
+  background: teal;
+}
+label span.amber {
+  background: #ffd24d;
+}
+label span.lime {
+  background: lime;
+}
+label span.mint {
+  background: #4dffb3;
+}
+label span.cyan {
+  background: cyan;
+}
+label span.navy {
+  background: navy;
+}
+
+.btn {
+  width: 100%;
+  margin-top: 20px;
+  padding: 12px;
+  background: #a683e3;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.btn:hover {
+  background: #8f6fd1;
+  transform: translateY(-2px);
+}

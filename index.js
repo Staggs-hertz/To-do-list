@@ -29,10 +29,10 @@ let currentUserId = 1;
 
 async function checkItems() {
   // changed the query to bring up the items of a particular user.id
-  const data = (await db.query(
+  const data = await db.query(
     "SELECT user_id, title FROM users JOIN items ON users.id = items.user_id WHERE users.id = ($1)",
     [currentUserId]
-  ));
+  );
   return data.rows;
 }
 
@@ -64,23 +64,37 @@ app.post("/add", async (req, res) => {
     await db.query("INSERT INTO items (title) VALUES ($1)", [item]);
     res.redirect("/");
   } catch (error) {
-    console.error("Error inserting record into items table", error.stack); 
+    console.error("Error inserting record into items table", error.stack);
   }
 });
 
 //post route for /user
 app.post("/user", async (req, res) => {
+  const response = req.body;
+
   try {
-    res.redirect("/");
+    
+    if (response.add == "Add New Member") { 
+      res.render("new.ejs");
+
+    } else {
+      const result = await (db.query("SELECT * FROM users WHERE name = ($1)", [response.user]));
+      currentUserId = result.rows[0].id;
+      res.redirect("/");
+    }
+
   } catch (error) {
-    console.error("Error fetching record of user", error.stack)
+    console.error("Error fetching record of user", error.stack);
   }
 });
 
 app.post("/edit", async (req, res) => {
   const result = req.body;
   try {
-    await db.query("UPDATE items SET title = ($1) WHERE id = ($2)", [result.updatedItemTitle, result.updatedItemId]);
+    await db.query("UPDATE items SET title = ($1) WHERE id = ($2)", [
+      result.updatedItemTitle,
+      result.updatedItemId,
+    ]);
     res.redirect("/");
   } catch (error) {
     console.error("Error updating record in items table:", error.stack);
