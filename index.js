@@ -30,7 +30,7 @@ let currentUserId = 1;
 async function checkItems() {
   // changed the query to bring up the items of a particular user.id
   const data = await db.query(
-    "SELECT user_id, title FROM users JOIN items ON users.id = items.user_id WHERE users.id = ($1)",
+    "SELECT items.id, title FROM users JOIN items ON users.id = items.user_id WHERE users.id = ($1)",
     [currentUserId]
   );
   return data.rows;
@@ -61,7 +61,7 @@ app.post("/add", async (req, res) => {
   //items.push({title: item});
   const item = req.body.newItem;
   try {
-    await db.query("INSERT INTO items (title) VALUES ($1)", [item]);
+    await db.query("INSERT INTO items (title, user_id) VALUES ($1, $2)", [item, currentUserId]);
     res.redirect("/");
   } catch (error) {
     console.error("Error inserting record into items table", error.stack);
@@ -85,6 +85,22 @@ app.post("/user", async (req, res) => {
 
   } catch (error) {
     console.error("Error fetching record of user", error.stack);
+  }
+});
+
+//post route to /new endpoint
+app.post("/new", async (req, res) => {
+  try {
+    const result = req.body;
+    const data = db.query(
+      "INSERT INTO users (name, color) VALUES ($1, $2) RETURNING *;",
+      [result.name, result.color]
+    );
+    const dataId = data.rows[0].id;
+    currentUserId = dataId;
+    res.redirect("/");
+  } catch (error) {
+    console.error("Error adding record to table", error.stack);
   }
 });
 

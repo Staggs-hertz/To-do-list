@@ -68,7 +68,10 @@ input[type="radio"]:checked + label .orange {
 input[type="radio"]:checked + label .yellow {
   border: 2px solid #816102;
 }
-input[type="radio"]:checked + label .olive {
+input[type="radio"]:checked + label .black {
+  border: 2px solid #555;
+}
+input[type="radio"]:checked + label .mint {
   border: 2px solid #505a0b;
 }
 input[type="radio"]:checked + label .green {
@@ -85,6 +88,9 @@ input[type="radio"]:checked + label .violet {
 }
 input[type="radio"]:checked + label .purple {
   border: 2px solid #501962;
+}
+input[type="radio"]:checked + label .magneta {
+  border: 2px solid #851554;
 }
 input[type="radio"]:checked + label .pink {
   border: 2px solid #851554;
